@@ -130,7 +130,8 @@ include ("inc/fonction.inc.php");
 							'id' => $idChoix));
 					$donnees = $reponseReq->fetch();
 					?>
-						<form action="modifier.php" method="post" name="formu" id="formu" >
+						<form action="modifier.php" method="post" name="formu" id="formu" enctype="multipart/form-data">
+						Insérez image de votre produit <input type="file" name="fichierB" id="fichierB" /><br/>
 						Nom de la boutique : <input type="text" name="nomBou" id="nomBou" value="<?php echo $donnees['nom']?>"/><br/>
 						Rue : <input type="text" name="rueBou" id="rueBou" value="<?php echo $donnees['rue']?>"/><br/>
 						cp : <input type="number" name="cpBou" id="cpBou" value="<?php echo $donnees['cp']?>"/><br/>
@@ -160,16 +161,31 @@ include ("inc/fonction.inc.php");
 							$ouverture = $_POST['ouvertureBou'];
 							$id = $_POST['idchoix'];
 							
-			
-			
+							if (!$_FILES['fichierB']['error'])
+							{
+								$extension = array('jpg', 'jpeg', 'gif', 'png');
+								upload($_POST['nomBou'], $_FILES['fichierB'], $extension, '1000000', '../images/boutiques/');
+								$nomImageB = $_FILES['fichierB']['name'];
+							}
+							else
+							{
+								$infoImg = $bdd->prepare('SELECT * FROM boutiques WHERE id = :id');
+								$infoImg->execute( array(
+										'id' => $id
+								));
+								$donneesI = $infoImg->fetch();
+								$nomImageB = $donneesI['image'];
+							}
+							
 							try
 							{
-								$modification = $bdd->prepare('UPDATE boutiques SET nom = :nom, rue = :rue, cp = :cp, ville = :ville, telephone = :tel, ouverture = :ouverture WHERE id = :id');
+								$modification = $bdd->prepare('UPDATE boutiques SET nom = :nom, rue = :rue, cp = :cp, ville = :ville, image = :image, telephone = :tel, ouverture = :ouverture WHERE id = :id');
 								$modification->execute(array(
 										'nom' => $nom,
 										'rue' => $rue,
 										'cp' => $cp,
 										'ville' => $ville,
+										'image' => $nomImageB,
 										'tel' => $tel,
 										'ouverture' => $ouverture,
 										'id' => $id

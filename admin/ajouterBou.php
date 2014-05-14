@@ -6,9 +6,10 @@ include ("inc/fonction.inc.php");
 
 <div>
 			
-			<form action="ajouterBou.php" method="post" name="formu" id="formu" >
+			<form action="ajouterBou.php" method="post" name="formu" id="formu" enctype="multipart/form-data" >
 						<fieldset>
-						Nom de la boutique : <input type="text" name="nomBou" id="nomBou"/><br/>
+						Insérez votre image <input type="file" name="fichier" id="fichier" /><br/>
+						Nom de la boutique : <input type="text" name="nomBou" id="nomBou"/><br/>						
 						Rue : <input type="text" name="rueBou" id="rueBou"/><br/>
 						Cp : <input type="number" name="cpBou" id="cpBou"/><br/>
 						Ville : <input type="text" name="villeBou" id="villeBou"><br/>	
@@ -25,27 +26,30 @@ include ("inc/fonction.inc.php");
 					{
 						if (isset($_POST['nomBou']) && !empty($_POST['nomBou']) && isset($_POST['rueBou']) && !empty($_POST['rueBou'])
 						&& isset($_POST['cpBou']) && !empty($_POST['cpBou']) && isset($_POST['villeBou']) && !empty($_POST['villeBou'])
-						&& isset($_POST['telBou'])&& !empty($_POST['telBou']) && isset($_POST['ouvertureBou']) && !empty($_POST['ouvertureBou']))
+						&& isset($_POST['telBou'])&& !empty($_POST['telBou']) && isset($_POST['ouvertureBou']) && !empty($_POST['ouvertureBou'])
+						&&!$_FILES['fichier']['error'])
 						{
-							//$extQueJeVeux = array('jpg', 'jpeg', 'gif', 'png');
-							//upload($_POST['nom'], $_POST['fichier'], $extQueJeVeux, '.../images/boutiques/');
+							$extension = array('jpg', 'jpeg', 'gif', 'png');
+							upload($_POST['nomBou'], $_FILES['fichier'], $extension, '1000000', '../images/boutiques/');
 							$nom = $_POST['nomBou'];
 							$rue = $_POST['rueBou'];
 							$cp = $_POST['cpBou'];
 							$ville = $_POST['villeBou'];
 							$tel = $_POST['telBou'];
 							$ouverture = $_POST['ouvertureBou'];
+							$nomImage=$_FILES['fichier']['name'];
 						
 							try
 							{
 								$pdo_options[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
 								$bdd = new PDO('mysql:host='.$hote.';dbname='.$bdd, $nomuser, $motdepass);
-								$ajoutReq = $bdd->prepare('INSERT INTO boutiques VALUES (\'\', :nom, :rue, :cp, :ville, \'\' ,:telephone, :ouverture)');
+								$ajoutReq = $bdd->prepare('INSERT INTO boutiques VALUES (\'\', :nom, :rue, :cp, :ville, :image, :telephone, :ouverture)');
 								$ajoutReq->execute( array(
 										'nom' => $nom,
 										'rue' => $rue,
 										'cp' => $cp,
 										'ville' => $ville,
+										'image' => $nomImage,
 										'telephone' => $tel,
 										'ouverture' => $ouverture,
 										));
