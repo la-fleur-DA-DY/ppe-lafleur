@@ -1,4 +1,5 @@
 <?php
+session_start();
 	include ("inc/entete.inc.php");
 ?>
 <h1>Nos produits</h1><br/>

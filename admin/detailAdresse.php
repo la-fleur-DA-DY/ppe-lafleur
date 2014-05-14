@@ -1,4 +1,5 @@
 <?php
+session_start();
 	include ("inc/entete.inc.php");
 	
 	if ( isset($_GET['idChoix']) )

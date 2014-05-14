@@ -1,6 +1,6 @@
 <?php
 	include ("inc/entete.inc.php");
-
+	session_start();
 ?>
 <h1>Nos différentes adresses</h1>
 <?php		
