@@ -29,6 +29,16 @@
 <a class="menu" href="adresse.php">Nos Adresses</a>
 </div>
 
+<?php
+session_start();
+if(isset($_SESSION['login']) && ($_SESSION['statut'] == 'user') ){
+?>
+<div class="barrem">
+<a class="menu" href="panier.php">Votre panier</a>
+</div>
+<?php 
+}
+?>
 
 </div>
 
@@ -40,7 +50,7 @@
 
 <div class="corps2">
 
-<?php 
+<?php
 $bdd = 'lafleur_vitrine';
 $hote ='localhost';
 $nomuser ='root';

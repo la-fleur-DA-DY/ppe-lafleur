@@ -1,6 +1,6 @@
 <?php
-session_start();
-	include ("inc/entete.inc.php");
+include ("inc/entete.inc.php");
+if(isset($_SESSION['login']) && ($_SESSION['statut'] == 'admin') ){
 ?>
 <h1>Nos produits</h1><br/>
 		
@@ -11,5 +11,9 @@ session_start();
 		</br></br></br>
 		<input type="button" name="addProd" value="Ajouter un produit" onclick="self.location.href='ajouterPro.php'"/>
 <?php
+}
+else{
+	echo 'Connecter vous en tant qu\'administrateur';
+}
 include ("inc/foot.inc.php"); 
 ?>

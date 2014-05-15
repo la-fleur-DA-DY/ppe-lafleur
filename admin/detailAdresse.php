@@ -1,6 +1,6 @@
 <?php
-session_start();
 	include ("inc/entete.inc.php");
+	if(isset($_SESSION['login']) && ($_SESSION['statut'] == 'admin') ){
 	
 	if ( isset($_GET['idChoix']) )
 	{
@@ -32,8 +32,10 @@ session_start();
 
 </br></br></br><a href="adresse.php">Retour a nos différentes adresse</a>
 
-</div>			
-</div>
-</div>
-</body>
-</html>
+<?php
+}
+else{
+	echo 'Connecter vous en tant qu\'administrateur';
+}
+include ("inc/foot.inc.php"); 
+?>

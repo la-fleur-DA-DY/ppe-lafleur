@@ -41,6 +41,7 @@
 <div class="corps2">
 
 <?php 
+session_start();
 $bdd = 'lafleur_vitrine';
 $hote ='localhost';
 $nomuser ='root';

@@ -1,7 +1,8 @@
 <?php
-session_start();
 include ("inc/entete.inc.php");
 include ("inc/fonction.inc.php");
+
+if(isset($_SESSION['login']) && ($_SESSION['statut'] == 'admin') ){
 
 			$pdo_options[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
 			$bdd = new PDO('mysql:host='.$hote.';dbname='.$bdd, $nomuser,$motdepass);
@@ -200,6 +201,10 @@ include ("inc/fonction.inc.php");
 							?>
 							</br></br></br><a href="adresse.php">Retour a nos différentes adresse</a> 
 							<?php 
+						}
+						}
+						else{
+							echo 'Connecter vous en tant qu\'administrateur';
 						}			
 include ("inc/foot.inc.php");
 ?>

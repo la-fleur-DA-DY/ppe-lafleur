@@ -1,6 +1,6 @@
 <?php
 	include ("inc/entete.inc.php");
-	session_start();
+	if(isset($_SESSION['login']) && ($_SESSION['statut'] == 'admin') ){
 ?>
 <h1>Nos différentes adresses</h1>
 <?php		
@@ -29,5 +29,9 @@
 		<input type="button" name="addAdresse" value="Ajouter une adresse" onclick="self.location.href='ajouterBou.php'"/>
 </br></br></br>
 		<?php 	
+		}
+		else{
+			echo 'Connecter vous en tant qu\'administrateur';
+		}
 include ("inc/foot.inc.php");
 ?>

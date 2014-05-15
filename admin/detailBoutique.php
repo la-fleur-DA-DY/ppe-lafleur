@@ -1,6 +1,6 @@
 <?php
-session_start();
 	include ("inc/entete.inc.php");
+	if(isset($_SESSION['login']) && ($_SESSION['statut'] == 'admin') ){
 
 		if ( isset($_GET['idType']) )
 		{
@@ -35,7 +35,10 @@ session_start();
 ?>
 </br></br></br><a href="boutique.php">Retour a nos différents produits</a> 
 <?php 
-		
-			include ("inc/foot.inc.php");
-		}
+}
+else{
+	echo 'Connecter vous en tant qu\'administrateur';
+}					
+include ("inc/foot.inc.php");
+}
 ?>

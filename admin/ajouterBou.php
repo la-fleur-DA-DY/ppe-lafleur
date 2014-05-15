@@ -1,8 +1,8 @@
 <?php
-session_start();
 include ("inc/entete.inc.php");
 include ("inc/fonction.inc.php");
 
+if(isset($_SESSION['login']) && ($_SESSION['statut'] == 'admin') ){
 ?>
 
 <div>
@@ -67,7 +67,13 @@ include ("inc/fonction.inc.php");
 					
 					?>
 					</br></br></br><a href="adresse.php">Retour a nos différentes adresse</a> 
-					<?php 						
+					<?php
+
+					
+}
+else{
+echo 'Connecter vous en tant qu\'administrateur';
+}			
 include ("inc/foot.inc.php"); 
 ?>
 </div>
